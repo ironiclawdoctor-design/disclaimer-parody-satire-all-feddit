@@ -13,10 +13,10 @@
 A single log entry is a data point. A timeline is a story. And unlike novels, this story needs to be true, complete, and boring enough to present to management.
 
 Timeline reconstruction is the core skill of forensics. It answers the only questions that matter:
-1. **What** happened?
-2. **When** did it happen?
-3. **In what order** did things happen?
-4. **What was the gap** between events?
+0. **What** happened?
+1. **When** did it happen?
+2. **In what order** did things happen?
+3. **What was the gap** between events?
 
 ---
 
@@ -307,24 +307,24 @@ IP="203.0.113.42"
 
 echo "=== Attack Timeline for $IP ==="
 
-# Phase 1: Reconnaissance (port scan, web crawl)
-echo "--- Phase 1: Recon ---"
+# Phase 0: Reconnaissance (port scan, web crawl)
+echo "--- Phase 0: Recon ---"
 grep "$IP" /var/log/ufw.log 2>/dev/null | head -5
 
-# Phase 2: Initial access (SSH brute force, web exploit)
-echo "--- Phase 2: Initial Access ---"
+# Phase 1: Initial access (SSH brute force, web exploit)
+echo "--- Phase 1: Initial Access ---"
 grep "$IP" /var/log/auth.log 2>/dev/null | grep -i "fail\|accept" | head -10
 
-# Phase 3: Privilege escalation
-echo "--- Phase 3: Privilege Escalation ---"
+# Phase 2: Privilege escalation
+echo "--- Phase 2: Privilege Escalation ---"
 grep "$IP" /var/log/auth.log 2>/dev/null | grep -i "sudo\|su:" | head -5
 
-# Phase 4: Lateral movement
-echo "--- Phase 4: Lateral Movement ---"
+# Phase 3: Lateral movement
+echo "--- Phase 3: Lateral Movement ---"
 grep "$IP" /var/log/syslog 2>/dev/null | grep -iE "ssh|connect|session" | head -5
 
-# Phase 5: Data exfiltration
-echo "--- Phase 5: Exfiltration ---"
+# Phase 4: Data exfiltration
+echo "--- Phase 4: Exfiltration ---"
 grep "$IP" /var/log/nginx/access.log 2>/dev/null | awk '$10 > 100000 {print}' | head -5
 ```
 

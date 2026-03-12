@@ -148,11 +148,11 @@ tcp.analysis.flags
 ```
 
 **Wireshark pro tips for forensics:**
-1. **Follow TCP Stream** — Right-click a packet → Follow → TCP Stream. See the full conversation.
-2. **Export HTTP Objects** — File → Export Objects → HTTP. Extract downloaded files.
-3. **Protocol Hierarchy** — Statistics → Protocol Hierarchy. See what protocols are in your capture.
-4. **Conversations** — Statistics → Conversations. See who talked to whom and how much.
-5. **I/O Graph** — Statistics → I/O Graph. See traffic patterns over time (spikes = interesting).
+0. **Follow TCP Stream** — Right-click a packet → Follow → TCP Stream. See the full conversation.
+1. **Export HTTP Objects** — File → Export Objects → HTTP. Extract downloaded files.
+2. **Protocol Hierarchy** — Statistics → Protocol Hierarchy. See what protocols are in your capture.
+3. **Conversations** — Statistics → Conversations. See who talked to whom and how much.
+4. **I/O Graph** — Statistics → I/O Graph. See traffic patterns over time (spikes = interesting).
 
 ---
 

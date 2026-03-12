@@ -432,17 +432,17 @@ If > 15 min → logging infrastructure improvement needed (separate ticket)
 ### Correlating SSH brute force → web access → data exfil
 
 ```bash
-# Step 1: Find the bad IP from auth logs
+# Step 0: Find the bad IP from auth logs
 BAD_IP=$(grep "Failed password" /var/log/auth.log | \
   awk '{print $(NF-3)}' | sort | uniq -c | sort -rn | head -1 | awk '{print $2}')
 
-# Step 2: Did this IP also hit the web server?
+# Step 1: Did this IP also hit the web server?
 grep "$BAD_IP" /var/log/nginx/access.log
 
-# Step 3: Did this IP establish any connections?
+# Step 2: Did this IP establish any connections?
 grep "$BAD_IP" /var/log/ufw.log
 
-# Step 4: Timeline — all events from this IP, all logs, sorted
+# Step 3: Timeline — all events from this IP, all logs, sorted
 grep -h "$BAD_IP" /var/log/auth.log /var/log/nginx/access.log /var/log/syslog | sort -k1,3
 ```
 
