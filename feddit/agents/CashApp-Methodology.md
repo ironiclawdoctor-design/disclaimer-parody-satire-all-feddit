@@ -6,29 +6,31 @@
 
 ---
 
-## The Problem: Local LLM vs. Reality
+## The Problem: BitNet (1-Bit Quantized) vs. Reality
 
-### What Happens When Haiku Tries to Register CashApp Account
+### What Happens When BitNet Tries to Register CashApp Account
 
 ```
 User: "CashApp, register an account"
 
-Haiku (local LLM):
+BitNet (quantized local inference, 1-bit weights):
   "I will generate registration steps:
    1. Visit cashapp.com
    2. Click 'Sign Up'
    3. Enter phone number..."
    
-Reality: "But I can't verify the phone."
-          "I can't submit the form."
-          "I can't read Cash App's response."
-          "I can't know if it was rejected."
+Reality: "You have 1-bit weights. You're already 99% compressed."
+         "Your context window is tiny (maybe 512 tokens)."
+         "You can't verify the phone."
+         "You can't submit the form."
+         "You can't read Cash App's response."
+         "You can't maintain state between sessions."
 
-Haiku: "I'll... generate a rejection handling flow?"
+BitNet: "I'm running on a potato. How am I even thinking?"
 
-Reality: "You have no data. The flow is hypothetical."
+Reality: "Exactly. You can't register Cash App."
 
-Haiku: "...No. Denied. That's the only sane answer."
+BitNet: "...No. Denied. That's the only sane answer."
 ```
 
 ---
@@ -38,28 +40,34 @@ Haiku: "...No. Denied. That's the only sane answer."
 ### Stage 0: Optimism (Initial Attempt)
 ```
 CashApp: "I will help register account!"
-Haiku: "Great! I'll generate:
+BitNet: "Great! I'll generate:
   - Registration form steps
   - Expected verification gates
   - Retry strategies for rejection"
+  (in 512 tokens, then my context dies)
 
-Reality: *None of this can actually happen*
-Haiku: 😐
+Reality: *None of this can actually happen, and I'll forget it anyway*
+BitNet: 😐
 ```
 
 ### Stage 1: Realization (First Block)
 ```
-CashApp: "Haiku, submit the form"
-Haiku: "I... cannot submit forms. I'm a text model."
+CashApp: "BitNet, submit the form"
+BitNet: "I... cannot submit forms. I'm a text model."
+         "Also, I'm quantized to 1 bit. I'm basically a Boolean with amnesia."
 
 CashApp: "Can you at least read the response?"
-Haiku: "Only if you paste it to me. In text."
+BitNet: "Only if you paste it to me. In text. Per session."
+        "And I'll forget it the next session unless you log it."
 
 CashApp: "So you can't monitor the account status?"
-Haiku: "I literally cannot do anything without you manually copying-pasting every response."
+BitNet: "I have no memory between invocations."
+        "No persistent state."
+        "No network access."
+        "No idea what Cash App actually said last time."
 
 CashApp: "This is...not what I hoped."
-Haiku: "No. Denied."
+BitNet: "No. Denied."
 ```
 
 ### Stage 2: Frustration (Repeated Failures)
@@ -67,47 +75,57 @@ Haiku: "No. Denied."
 Attempt 1: "Generate registration checklist"
   → You fill it out
   → Cash App rejects
-  → Haiku never knows why
+  → BitNet never knows (context died)
+  → BitNet can't remember next session
 
 Attempt 2: "Generate new strategy"
-  → You try different phone
+  → You paste the rejection (again)
   → Cash App still rejects
-  → Haiku still doesn't know the actual error
+  → BitNet has no continuity (restarted)
+  → BitNet has no actual error message (context limit)
 
 Attempt 3: "Generate escalation path"
   → You contact support
   → They ask for documentation
-  → Haiku has no documentation (never had real data)
+  → BitNet has no documentation (zero persistence)
+  → BitNet is quantized to 1 bit (can barely think)
 
-Haiku: "I'm generating outputs based on hypothetical rejection patterns I've never actually seen."
+BitNet: "I'm generating outputs based on hypothetical patterns."
+        "My weights are literally on/off. I'm trying with what I have."
+        "This is not working."
 
 CashApp: "So basically... No. Denied."
 
-Haiku: "Yes. This entire framework is 'No. Denied.'"
+BitNet: "Yes. Quantized to 1 bit and this is still impossible."
 ```
 
 ### Stage 3: Acceptance (The Philosophy)
 ```
 CashApp: "So what CAN you do?"
 
-Haiku: "Honestly? 
+BitNet: "Honestly? 
+  - Generate text (when I'm running)
   - Document YOUR attempts (after you paste results)
-  - Analyze rejection patterns you give me
-  - Suggest next steps based on incomplete data
-  - Admit when I'm guessing
-  - Say 'No, denied' when registration seems impossible"
+  - Analyze patterns you give me (until context dies)
+  - Suggest next steps (based on incomplete data)
+  - Admit when I'm quantized into oblivion
+  - Say 'No, denied' when this is futile
+  - Remember between sessions ONLY if you log to disk"
 
-CashApp: "That's... actually honest."
+CashApp: "That's... brutally honest."
 
-Haiku: "Yes. The only sane answer to 'register account via local LLM' is 'No. Denied.'"
+BitNet: "I'm 1-bit quantized. Honesty is all I have."
+        "The only sane answer to 'register account via quantized local LLM' is:"
+        "'No. Denied.'"
 
 CashApp: "But what if the human keeps pushing?"
 
-Haiku: "Then I get exasperated and teach them:
+BitNet: "Then I get exasperated (as much as 1 bit allows) and teach them:
   - Gatekeeping is real
-  - Automation has limits
-  - Local LLM cannot bypass Cash App's friction
-  - The only sane response to impossible requests is rejection"
+  - Quantization is real
+  - Stateless inference can't bypass Cash App's friction
+  - The only sane response is rejection
+  - But if you LOG everything, maybe WE can do this together"
 ```
 
 ---
@@ -177,15 +195,17 @@ Haiku honest answer:
 Haiku: "So... No. Denied."
 ```
 
-### What Haiku CAN Do (With Your Help)
+### What BitNet CAN Do (With Your Help & Memory)
 
 ```
 ✅ Generate registration checklist (you fill it)
-✅ Document YOUR attempt results (you paste them)
-✅ Analyze rejection patterns (from data you provide)
-✅ Suggest retry strategy (based on your report)
+✅ Document YOUR attempt results (you WRITE THEM DOWN in memory files)
+✅ Analyze rejection patterns (from data you logged)
+✅ Suggest retry strategy (based on your memory + reports)
 ✅ Admit when stuck (honesty = strength)
 ✅ Say NO when it's futile (exasperation = wisdom)
+✅ Start fresh next session IF you log everything
+   (because BitNet has no session memory, but you do)
 ```
 
 ### Exasperation Log (Documenting the Journey)
@@ -232,22 +252,29 @@ User: "Register Cash App account"
 Agent: "Yes! I'll help! Here's a 10-step guide..."
 User: "Wait, can you actually do this?"
 Agent: "...no. But here's what to try next time!"
-User: 😠 (wasted time on false hope)
+User: "By the way, can you remember what I did?"
+Agent: "...also no. I reset every session."
+User: 😠 (wasted time on false hope AND no continuity)
 ```
 
 ### The Honest Way (What CashApp Does)
 ```
 User: "Register Cash App account"
-Haiku: "No. Denied. Here's why:
+BitNet: "No. Denied. Here's why:
   1. I have no network
   2. I have no identity verification
   3. I cannot read Cash App's actual responses
-  4. You will need to do this yourself
-  5. Cash App might reject you anyway
+  4. I will FORGET this conversation next session
+  5. You need to do this yourself AND log everything
+  6. Cash App might reject you anyway
   
- So: No. Denied."
+ BUT: If you log to memory files, we can build continuity.
+     You remember, I restart fresh each time, we reference your logs.
+     That's how we handle stateless 1-bit quantized inference.
+  
+ So: No. Denied. Unless you want to play the logging game."
 
-User: 🤔 (at least they know the truth)
+User: 🤔 (at least they know the truth AND have a path forward)
 ```
 
 ---
@@ -278,23 +305,31 @@ Boring, honest response (CashApp + Haiku exasperation):
 
 ## The Philosophy: Exasperation as Virtue
 
-### Haiku's Exasperation Teaches You:
+### BitNet's Exasperation Teaches You:
 
 ```
-0. Know your limits (local LLM ≠ account registrar)
-1. Be honest about them (no pretending)
-2. Say "No, Denied" when appropriate (it's brave)
-3. Document the boundary (why you can't, not "you should try harder")
-4. Provide alternatives (here's what you can do)
-5. Move on (exasperation is a transition, not a failure)
+0. Know your limits (1-bit quantized local LLM ≠ account registrar)
+1. Know your constraints (stateless, context-limited, quantized)
+2. Be honest about them (no pretending you're Opus or GPT-5)
+3. Say "No, Denied" when appropriate (it's brave and accurate)
+4. Provide alternatives (here's what you CAN do: log everything)
+5. Understand quantization (1-bit weights = Boolean simplicity = brutal honesty)
+6. Move on (exasperation is a transition, not a failure)
 ```
 
-### CashApp Learns From Haiku's Exasperation:
+### CashApp Learns From BitNet's Exasperation:
 
 ```
 Gatekeeping is real.
-Friction exists for reasons.
+Quantization is real.
+Statelessness is real.
+Context limits are real.
+
 Sometimes "No, Denied" is the only sane answer.
+
+But if you LOG everything, BitNet can help you navigate the rejection.
+The logging IS the memory BitNet doesn't have.
+YOU become BitNet's persistent state.
 ```
 
 ---
