@@ -1,0 +1,53 @@
+[START] Feddit running on port 8888
+
+╔════════════════════════════════════════════════════╗
+║  🛡️  Feddit — Clandestine Forensic Education       ║
+║  Listening on: http://localhost:8888           ║
+║  Tailscale enabled (private network only)         ║
+║  Access log: /root/.openclaw/workspace/disclaimer-parody-satire-all-feddit/feddit/access.jsonl      ║
+╚════════════════════════════════════════════════════╝
+
+[LIST] /
+[READ] /index.html
+[READ] /index.html
+[NOT_FOUND] /favicon.ico
+[LIST] /wetwork
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[NOT_FOUND] /qr-code.png
+[READ] /index.html
+[NOT_FOUND] /apple-touch-icon-precomposed.png
+[NOT_FOUND] /apple-touch-icon.png
+[NOT_FOUND] /favicon.ico
+[READ] /index.html
+[READ] /index.html
+[LIST] /forensics
+[READ] /forensics/packet-capture.md
+[READ] /forensics/log-analysis.md
+[READ] /volunteer-signup.html
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[LIST] /
+[NOT_FOUND] /%7Bforensics,wetwork,counters,breach-data,disclaimer%7D
+[READ] /SETUP.md
+[READ] /index.html
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[READ] /index.html
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[NOT_FOUND] /favicon.ico
+[READ] /index.html
+[NOT_FOUND] /favicon.ico
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png
+[READ] /deposit.html
+[NOT_FOUND] /qr-code.png

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agency Infrastructure Wallet — Test Deposit</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Monaco', 'Courier New', monospace;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+      color: #4ade80;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      color: #60a5fa;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+    }
+    
+    .subtitle {
+      color: #9ca3af;
+      font-size: 1.1em;
+    }
+    
+    .wallet-card {
+      background: #1e293b;
+      border: 2px solid #374151;
+      border-radius: 8px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+    
+    .wallet-card h2 {
+      color: #fbbf24;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #374151;
+      padding-bottom: 10px;
+    }
+    
+    .address-box {
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 15px 0;
+      word-break: break-all;
+      font-size: 0.95em;
+    }
+    
+    .copy-btn {
+      background: #60a5fa;
+      color: #0a0e27;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    
+    .copy-btn:hover {
+      background: #3b82f6;
+    }
+    
+    .qr-section {
+      text-align: center;
+      margin: 30px 0;
+    }
+    
+    .qr-code {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 20px 0;
+    }
+    
+    .qr-code img {
+      max-width: 300px;
+      height: auto;
+    }
+    
+    .steps {
+      list-style: none;
+      margin: 30px 0;
+    }
+    
+    .steps li {
+      background: #1e293b;
+      border-left: 3px solid #fbbf24;
+      padding: 15px 20px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+    
+    .steps li strong {
+      color: #fbbf24;
+    }
+    
+    .info-box {
+      background: #1f2937;
+      border-left: 4px solid #ef4444;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .info-box strong {
+      color: #ef4444;
+    }
+    
+    .amount {
+      font-size: 2em;
+      color: #10b981;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+      background: #064e3b;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .status {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 30px 0;
+    }
+    
+    .status-item {
+      background: #1e293b;
+      border: 1px solid #374151;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    
+    .status-item .label {
+      color: #9ca3af;
+      font-size: 0.9em;
+    }
+    
+    .status-item .value {
+      color: #4ade80;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #374151;
+      color: #6b7280;
+      font-size: 0.9em;
+    }
+    
+    .disclaimer {
+      background: #1f2937;
+      border: 1px solid #374151;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 30px 0;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🛡️ Agency Infrastructure Wallet</h1>
+      <p class="subtitle">Test Deposit — Multi-Chain Support</p>
+    </header>
+    
+    <div class="wallet-card">
+      <h2>🔗 Ethereum (USDC)</h2>
+      <div class="address-box">
+        0x5412d08280df098a252a4517d5f5807064c0a9aa
+      </div>
+      <button class="copy-btn" onclick="copyAddress('ethereum')">📋 Copy Address</button>
+      <div class="amount">
+        Send: 1.22 USDC
+      </div>
+    </div>
+    
+    <div class="wallet-card">
+      <h2>₿ Bitcoin</h2>
+      <div class="address-box">
+        18gn3zWCfgc3dcF9tTMS6CoaDgyaMUDjXF
+      </div>
+      <button class="copy-btn" onclick="copyAddress('bitcoin')">📋 Copy Address</button>
+      <div class="amount">
+        Send: 0.00003 BTC (~$1.22)
+      </div>
+    </div>
+    
+    <div class="wallet-card">
+      <h2>📱 QR Code</h2>
+      <p>Scan with your wallet app to auto-fill the address:</p>
+      <div class="qr-section">
+        <img src="qr-code.png" alt="USDC Deposit QR Code" style="max-width: 300px;">
+      </div>
+    </div>
+    
+    <div class="wallet-card">
+      <h2>📖 How It Works</h2>
+      <ol class="steps">
+        <li><strong>Send 1.22 USDC</strong> from any Ethereum wallet (MetaMask, Coinbase, Kraken, etc)</li>
+        <li><strong>Confirm on Ethereum mainnet</strong> (not Polygon, Arbitrum, or other chains)</li>
+        <li><strong>Wait 6-12 confirmations</strong> for the transaction to finalize</li>
+        <li><strong>Automatic logging:</strong> Deposit appears in ledger (double-entry accounting)</li>
+        <li><strong>Hourly reconciliation:</strong> Blockchain balance vs. ledger verified automatically</li>
+      </ol>
+    </div>
+    
+    <div class="wallet-card">
+      <h2>⚠️ Important</h2>
+      <div class="info-box">
+        <strong>⛔ SEND ONLY TO THE ADDRESS ABOVE</strong><br>
+        If you send USDC to the wrong address or network (Polygon, Arbitrum, etc):
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>Funds are <strong>permanently lost</strong> (non-recoverable)</li>
+          <li>Logged as "down payment on delinquent accounts"</li>
+          <li>Governance may consider restitution (no guarantee)</li>
+        </ul>
+      </div>
+      
+      <div class="info-box" style="border-left-color: #f59e0b;">
+        <strong style="color: #f59e0b;">⚡ ETHEREUM MAINNET ONLY</strong><br>
+        Address: <code>0x0e0e4fc5a96383f11f16a7b1126fb1035a9366bc</code><br>
+        Token: USDC (Ethereum mainnet)
+      </div>
+    </div>
+    
+    <div class="status">
+      <div class="status-item">
+        <div class="label">Wallet Status</div>
+        <div class="value">✅ Initialized</div>
+      </div>
+      <div class="status-item">
+        <div class="label">Current Balance</div>
+        <div class="value">$0.00</div>
+      </div>
+      <div class="status-item">
+        <div class="label">Ledger System</div>
+        <div class="value">✅ Active</div>
+      </div>
+      <div class="status-item">
+        <div class="label">Monitoring</div>
+        <div class="value">✅ Running</div>
+      </div>
+    </div>
+    
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong><br>
+      This is NOT a registered financial service. This is NOT FDIC insured. This is infrastructure for a private agency. 
+      The deposit mechanism is transparent and auditable, but carries all normal crypto custody risks. 
+      By sending funds, you acknowledge understanding these risks.
+      <br><br>
+      <em>"This is all just satire, parody and protected free speech. The real truth is far more boredom than even novels can imagine."</em>
+    </disclaimer>
+    
+    <footer>
+      <p>🛡️ Feddit — Clandestine Forensic Education</p>
+      <p>All deposits logged to double-entry accounting system</p>
+      <p>Reconciliation verified hourly via blockchain APIs</p>
+    </footer>
+  </div>
+  
+  <script>
+    function copyAddress(chain) {
+      let address = "";
+      if (chain === 'ethereum') {
+        address = "0x5412d08280df098a252a4517d5f5807064c0a9aa";
+      } else if (chain === 'bitcoin') {
+        address = "18gn3zWCfgc3dcF9tTMS6CoaDgyaMUDjXF";
+      }
+      
+      if (address) {
+        navigator.clipboard.writeText(address).then(() => {
+          alert("✅ " + chain.toUpperCase() + " address copied!");
+        }).catch(err => {
+          console.error("Copy failed:", err);
+        });
+      }
+    }
+  </script>
+</body>
+</html>

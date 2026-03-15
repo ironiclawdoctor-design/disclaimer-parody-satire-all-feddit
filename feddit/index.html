@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feddit — Clandestine Forensic Education</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Monaco', 'Courier New', monospace;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+      color: #4ade80;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    nav {
+      background: #0f172a;
+      border-bottom: 2px solid #374151;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5em;
+      color: #60a5fa;
+      font-weight: bold;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+    }
+    
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    
+    nav a {
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.3s;
+      border-bottom: 2px solid transparent;
+    }
+    
+    nav a:hover {
+      color: #4ade80;
+      border-bottom-color: #4ade80;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    
+    h1 {
+      font-size: 3.5em;
+      color: #60a5fa;
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+      line-height: 1.2;
+    }
+    
+    .tagline {
+      font-size: 1.3em;
+      color: #fbbf24;
+      margin-bottom: 10px;
+    }
+    
+    .description {
+      color: #9ca3af;
+      font-size: 1.1em;
+      max-width: 800px;
+      margin: 20px auto;
+      line-height: 1.6;
+    }
+    
+    .disclaimer {
+      background: #1f2937;
+      border-left: 4px solid #fbbf24;
+      padding: 20px;
+      border-radius: 4px;
+      margin: 30px auto;
+      max-width: 800px;
+      color: #d1d5db;
+      font-style: italic;
+    }
+    
+    .cta-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 80px 0;
+    }
+    
+    .cta-card {
+      background: #1e293b;
+      border: 2px solid #374151;
+      border-radius: 8px;
+      padding: 40px;
+      transition: all 0.3s;
+    }
+    
+    .cta-card:hover {
+      border-color: #60a5fa;
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.2);
+    }
+    
+    .cta-card h2 {
+      color: #fbbf24;
+      margin-bottom: 15px;
+      font-size: 1.8em;
+    }
+    
+    .cta-card p {
+      color: #9ca3af;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .cta-btn {
+      display: inline-block;
+      background: #60a5fa;
+      color: #0a0e27;
+      padding: 12px 30px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1em;
+    }
+    
+    .cta-btn:hover {
+      background: #3b82f6;
+    }
+    
+    .cta-btn.secondary {
+      background: #10b981;
+    }
+    
+    .cta-btn.secondary:hover {
+      background: #059669;
+    }
+    
+    .features {
+      margin: 80px 0;
+    }
+    
+    .features h2 {
+      color: #60a5fa;
+      font-size: 2.2em;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    
+    .feature {
+      background: #1e293b;
+      border: 1px solid #374151;
+      padding: 30px;
+      border-radius: 4px;
+    }
+    
+    .feature h3 {
+      color: #fbbf24;
+      margin-bottom: 10px;
+    }
+    
+    .feature p {
+      color: #9ca3af;
+      line-height: 1.6;
+      font-size: 0.95em;
+    }
+    
+    .stats {
+      background: #1e293b;
+      border: 2px solid #374151;
+      border-radius: 8px;
+      padding: 40px;
+      margin: 60px 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+    
+    .stat {
+      border-right: 1px solid #374151;
+    }
+    
+    .stat:last-child {
+      border-right: none;
+    }
+    
+    .stat-number {
+      font-size: 2.5em;
+      color: #10b981;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .stat-label {
+      color: #9ca3af;
+      font-size: 0.95em;
+    }
+    
+    .resources {
+      margin: 80px 0;
+    }
+    
+    .resources h2 {
+      color: #60a5fa;
+      font-size: 2.2em;
+      margin-bottom: 30px;
+    }
+    
+    .resource-list {
+      background: #1e293b;
+      border: 1px solid #374151;
+      border-radius: 4px;
+      padding: 30px;
+    }
+    
+    .resource-list li {
+      margin: 15px 0;
+      padding-left: 25px;
+      position: relative;
+      color: #9ca3af;
+    }
+    
+    .resource-list li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #fbbf24;
+      font-weight: bold;
+    }
+    
+    .resource-list a {
+      color: #4ade80;
+      text-decoration: none;
+      border-bottom: 1px dotted #4ade80;
+    }
+    
+    .resource-list a:hover {
+      color: #10b981;
+    }
+    
+    footer {
+      background: #0f172a;
+      border-top: 1px solid #374151;
+      padding: 40px;
+      text-align: center;
+      color: #6b7280;
+      margin-top: 100px;
+    }
+    
+    footer p {
+      margin: 10px 0;
+      font-size: 0.9em;
+    }
+    
+    @media (max-width: 768px) {
+      .cta-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .stat {
+        border-right: none;
+        border-bottom: 1px solid #374151;
+      }
+      
+      .stat:nth-child(2n) {
+        border-right: none;
+      }
+      
+      nav ul {
+        gap: 15px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">🛡️ Feddit</div>
+    <ul>
+      <li><a href="#breach-data">Breach Data</a></li>
+      <li><a href="#contribute">Contribute</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="deposit.html">Fund</a></li>
+    </ul>
+  </nav>
+  
+  <div class="container">
+    <header>
+      <h1>Feddit</h1>
+      <p class="tagline">Clandestine Forensic Education</p>
+      <p class="description">
+        A transparent platform for studying breach tactics, defensive counters, and the boring cybersecurity that actually works.
+        Assume breach. Plan accordingly. Learn constantly.
+      </p>
+      <div class="disclaimer">
+        "This is all just satire, parody and protected free speech. The real truth is far more boredom than even novels can imagine."
+      </div>
+    </header>
+    
+    <div class="cta-section">
+      <div class="cta-card">
+        <h2>🔍 Study Breaches</h2>
+        <p>
+          Explore documented breach tactics, attack vectors, and forensic analysis. 
+          Learn how real attacks happen and how boring security stops them.
+        </p>
+        <a href="/forensics/" class="cta-btn">View Forensics</a>
+      </div>
+      
+      <div class="cta-card">
+        <h2>🤝 Join Contributors</h2>
+        <p>
+          Volunteer your time, expertise, or resources. 
+          Help build infrastructure that respects transparency, costs discipline, and common sense.
+        </p>
+        <a href="volunteer-signup.html" class="cta-btn secondary">Volunteer Now</a>
+      </div>
+    </div>
+    
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">8</div>
+        <div class="stat-label">Breach Data Categories</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Cost (Free)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Vendor Lock-in</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">✅</div>
+        <div class="stat-label">Auditable</div>
+      </div>
+    </div>
+    
+    <div class="features">
+      <h2>How Feddit Works</h2>
+      
+      <div class="feature-grid">
+        <div class="feature">
+          <h3>📊 Forensics</h3>
+          <p>
+            Detailed analysis of breach techniques: phishing campaigns, 
+            zero-days, supply chain attacks, social engineering. See how real attacks unfold.
+          </p>
+        </div>
+        
+        <div class="feature">
+          <h3>⚔️ Wetwork</h3>
+          <p>
+            Offensive reconnaissance and simulation. Understand the attacker's perspective 
+            before they understand you.
+          </p>
+        </div>
+        
+        <div class="feature">
+          <h3>🛡️ Counters</h3>
+          <p>
+            Boring defensive responses. MFA, DKIM, rate limiting, network segmentation. 
+            Simple, proven, effective.
+          </p>
+        </div>
+        
+        <div class="feature">
+          <h3>📚 Education</h3>
+          <p>
+            Learn cybersecurity through primary source material. 
+            Read breach post-mortems, forensic reports, incident timelines.
+          </p>
+        </div>
+        
+        <div class="feature">
+          <h3>🔐 Transparency</h3>
+          <p>
+            All data logged, auditable, cryptographically verified. 
+            No black boxes. No mystery access.
+          </p>
+        </div>
+        
+        <div class="feature">
+          <h3>🚀 Open Source</h3>
+          <p>
+            Everything is forkable. Run your own instance. Modify, improve, contribute back. 
+            No gatekeeping.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="resources">
+      <h2>Browse Feddit</h2>
+      
+      <div class="resource-list">
+        <ul>
+          <li><a href="/forensics/">📊 Forensics</a> — Breach analysis & incident timelines</li>
+          <li><a href="/wetwork/">⚔️ Wetwork</a> — Offensive reconnaissance techniques</li>
+          <li><a href="/counters/">🛡️ Counters</a> — Defensive security controls</li>
+          <li><a href="/disclaimer/">📋 Disclaimer</a> — Full terms & conditions</li>
+          <li><a href="volunteer-signup.html">🤝 Volunteer</a> — Join as a contributor</li>
+          <li><a href="deposit.html">💰 Fund</a> — Support infrastructure (crypto or time)</li>
+          <li><a href="mod-cli.sh">🔧 Mod Tools</a> — Manage breach records (admins only)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>🛡️ <strong>Feddit — Clandestine Forensic Education</strong></p>
+    <p>Built by the Agency. Maintained by volunteers. Auditable. Transparent. Free.</p>
+    <p>
+      Hosted on <a href="https://tailscale.com" style="color: #4ade80;">Tailscale</a> 
+      | All work is <a href="https://github.com" style="color: #4ade80;">open source</a>
+    </p>
+    <p style="margin-top: 20px; font-style: italic; color: #9ca3af;">
+      "The real truth is far more boredom than even novels can imagine."
+    </p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agency Volunteer Program — Donate Time</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Monaco', 'Courier New', monospace;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+      color: #4ade80;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      color: #60a5fa;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+    }
+    
+    .subtitle {
+      color: #9ca3af;
+      font-size: 1.1em;
+    }
+    
+    .intro {
+      background: #1e293b;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .intro p {
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+    
+    .form-section {
+      background: #1e293b;
+      border: 2px solid #374151;
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .form-section h2 {
+      color: #fbbf24;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #374151;
+      padding-bottom: 10px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #9ca3af;
+      font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 4px;
+      color: #4ade80;
+      font-family: inherit;
+      font-size: 1em;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .role-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .role-option {
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 4px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .role-option:hover {
+      border-color: #60a5fa;
+      background: #1a2940;
+    }
+    
+    .role-option input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    
+    .role-option label {
+      margin: 0;
+      cursor: pointer;
+      display: inline;
+      color: #4ade80;
+    }
+    
+    .role-option .description {
+      font-size: 0.9em;
+      color: #9ca3af;
+      margin-top: 5px;
+      margin-left: 24px;
+    }
+    
+    .tos-section {
+      background: #1f2937;
+      border-left: 4px solid #fbbf24;
+      padding: 20px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+    
+    .tos-section h3 {
+      color: #fbbf24;
+      margin-bottom: 10px;
+    }
+    
+    .tos-content {
+      font-size: 0.9em;
+      line-height: 1.6;
+      max-height: 200px;
+      overflow-y: auto;
+      background: #0f172a;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    
+    .tos-content p {
+      margin: 10px 0;
+    }
+    
+    .checkbox-group {
+      margin: 15px 0;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    
+    .checkbox-group label {
+      display: inline;
+      margin: 0;
+      color: #4ade80;
+    }
+    
+    .submit-btn {
+      background: #10b981;
+      color: #0a0e27;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.1em;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+      width: 100%;
+    }
+    
+    .submit-btn:hover {
+      background: #059669;
+    }
+    
+    .submit-btn:disabled {
+      background: #6b7280;
+      cursor: not-allowed;
+    }
+    
+    .success-message {
+      display: none;
+      background: #064e3b;
+      border: 1px solid #10b981;
+      color: #10b981;
+      padding: 20px;
+      border-radius: 4px;
+      margin-bottom: 30px;
+    }
+    
+    .success-message h3 {
+      margin-bottom: 10px;
+    }
+    
+    .roles-section {
+      margin-bottom: 30px;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #374151;
+      color: #6b7280;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🤝 Agency Volunteer Program</h1>
+      <p class="subtitle">Donate Time Instead of Resources</p>
+    </header>
+    
+    <div class="intro">
+      <p><strong>Welcome.</strong> The agency needs human capital as much as crypto capital. If you don't have $1.22 but you have time, energy, and ideas—we want you.</p>
+      
+      <p><strong>What you get:</strong></p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>✅ Forum access (Feddit)</li>
+        <li>✅ Contributor status (shown in public records)</li>
+        <li>✅ Access to build orders + project planning</li>
+        <li>✅ Equity consideration (future governance tokens)</li>
+        <li>✅ Recognition (your name in CONTRIBUTORS.md)</li>
+      </ul>
+      
+      <p style="margin-top: 20px;"><strong>What we need:</strong> People who can code, think critically, test systems, document, and push back on bad ideas.</p>
+    </div>
+    
+    <form id="volunteerForm" onsubmit="handleSubmit(event)">
+      <!-- Success Message -->
+      <div class="success-message" id="successMessage">
+        <h3>✅ Welcome to the Agency</h3>
+        <p>Your volunteer application has been recorded. Check your email for next steps.</p>
+        <p>Expected response: 24-48 hours. We'll be in touch.</p>
+      </div>
+      
+      <!-- Basic Info -->
+      <div class="form-section">
+        <h2>👤 Basic Information</h2>
+        
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Your name (real or handle)">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="your@email.com">
+        </div>
+        
+        <div class="form-group">
+          <label for="timezone">Timezone</label>
+          <select id="timezone" name="timezone">
+            <option value="">Select your timezone</option>
+            <option value="UTC">UTC</option>
+            <option value="EST">EST (America/New_York)</option>
+            <option value="CST">CST (America/Chicago)</option>
+            <option value="MST">MST (America/Denver)</option>
+            <option value="PST">PST (America/Los_Angeles)</option>
+            <option value="GMT">GMT (Europe/London)</option>
+            <option value="CET">CET (Europe/Paris)</option>
+            <option value="IST">IST (Asia/Kolkata)</option>
+            <option value="JST">JST (Asia/Tokyo)</option>
+            <option value="AEDT">AEDT (Australia/Sydney)</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Skills & Roles -->
+      <div class="form-section roles-section">
+        <h2>💼 What Can You Contribute?</h2>
+        
+        <p style="color: #9ca3af; margin-bottom: 20px;">Select all that apply:</p>
+        
+        <div class="role-list">
+          <div class="role-option">
+            <input type="checkbox" id="role-code" name="roles" value="code">
+            <label for="role-code"><strong>Code</strong></label>
+            <div class="description">Bash, Python, Node.js, testing, infrastructure</div>
+          </div>
+          
+          <div class="role-option">
+            <input type="checkbox" id="role-crypto" name="roles" value="crypto">
+            <label for="role-crypto"><strong>Crypto</strong></label>
+            <div class="description">Blockchain, wallets, settlement, smart contracts</div>
+          </div>
+          
+          <div class="role-option">
+            <input type="checkbox" id="role-security" name="roles" value="security">
+            <label for="role-security"><strong>Security</strong></label>
+            <div class="description">Threat modeling, auditing, breach response</div>
+          </div>
+          
+          <div class="role-option">
+            <input type="checkbox" id="role-ops" name="roles" value="ops">
+            <label for="role-ops"><strong>Operations</strong></label>
+            <div class="description">Monitoring, logging, deployment, incident response</div>
+          </div>
+          
+          <div class="role-option">
+            <input type="checkbox" id="role-docs" name="roles" value="docs">
+            <label for="role-docs"><strong>Documentation</strong></label>
+            <div class="description">Writing, clarity, explanations, tutorials</div>
+          </div>
+          
+          <div class="role-option">
+            <input type="checkbox" id="role-design" name="roles" value="design">
+            <label for="role-design"><strong>Design</strong></label>
+            <div class="description">UX, UI, architecture, systems thinking</div>
+          </div>
+          
+          <div class="role-option">
+            <input type="checkbox" id="role-strategy" name="roles" value="strategy">
+            <label for="role-strategy"><strong>Strategy</strong></label>
+            <div class="description">Planning, roadmap, decision-making, critique</div>
+          </div>
+          
+          <div class="role-option">
+            <input type="checkbox" id="role-other" name="roles" value="other">
+            <label for="role-other"><strong>Other</strong></label>
+            <div class="description">Something else? Tell us</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="background">Your Background (Brief)</label>
+          <textarea id="background" name="background" placeholder="What's your experience? What have you built? Why are you interested?"></textarea>
+        </div>
+      </div>
+      
+      <!-- Commitment -->
+      <div class="form-section">
+        <h2>⏰ Time Commitment</h2>
+        
+        <div class="form-group">
+          <label for="hours">How many hours/week can you contribute? *</label>
+          <select id="hours" name="hours" required>
+            <option value="">Select hours per week</option>
+            <option value="1-5">1-5 hours (casual)</option>
+            <option value="5-10">5-10 hours (part-time)</option>
+            <option value="10-20">10-20 hours (significant)</option>
+            <option value="20+">20+ hours (committed)</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Terms of Service -->
+      <div class="form-section">
+        <h2>📋 Terms of Service</h2>
+        
+        <div class="tos-section">
+          <h3>Agency Volunteer Agreement</h3>
+          
+          <div class="tos-content">
+            <p><strong>1. Confidentiality</strong></p>
+            <p>You agree not to share agency work, decisions, or plans publicly without approval. Internal discussions stay internal.</p>
+            
+            <p><strong>2. No Guarantee of Compensation</strong></p>
+            <p>Volunteering is unpaid. Future equity is not guaranteed. You contribute because you believe in the mission, not for guaranteed reward.</p>
+            
+            <p><strong>3. Work Product</strong></p>
+            <p>Code, writing, ideas, and work you contribute becomes agency property (licensed under appropriate open-source licenses). You retain attribution.</p>
+            
+            <p><strong>4. Assume Breach</strong></p>
+            <p>The agency assumes we're compromised. You agree to follow security practices: no passwords in logs, no private keys in repos, assume everything could be public.</p>
+            
+            <p><strong>5. Right to Decline</strong></p>
+            <p>The agency can decline your participation if your values don't align with ours (integrity, transparency, cost discipline, common sense).</p>
+            
+            <p><strong>6. Satire & Parody</strong></p>
+            <p>"This is all just satire, parody and protected free speech. The real truth is far more boredom than even novels can imagine." By volunteering, you accept that some agency operations are deliberately absurd and fictional.</p>
+            
+            <p><strong>7. Open Source</strong></p>
+            <p>The agency operates in the open. Your name may appear in CONTRIBUTORS.md and be associated with public projects. You're okay with that.</p>
+          </div>
+          
+          <div class="checkbox-group">
+            <input type="checkbox" id="agree-tos" name="agreeTos" required>
+            <label for="agree-tos">I have read and agree to the Volunteer Agreement *</label>
+          </div>
+          
+          <div class="checkbox-group">
+            <input type="checkbox" id="agree-risk" name="agreeRisk" required>
+            <label for="agree-risk">I understand this is a startup/experimental project with no guaranteed outcome *</label>
+          </div>
+          
+          <div class="checkbox-group">
+            <input type="checkbox" id="agree-communicate" name="agreeCommunicate">
+            <label for="agree-communicate">I consent to being contacted at this email address</label>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Submit -->
+      <button type="submit" class="submit-btn">Join the Agency</button>
+    </form>
+    
+    <footer>
+      <p>🛡️ Feddit — Clandestine Forensic Education</p>
+      <p>Your volunteer application will be logged and reviewed by the agency leadership.</p>
+      <p>Privacy: Your data is stored locally and treated with full confidentiality.</p>
+    </footer>
+  </div>
+  
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      
+      // Collect form data
+      const formData = {
+        timestamp: new Date().toISOString(),
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        timezone: document.getElementById('timezone').value,
+        roles: Array.from(document.querySelectorAll('input[name="roles"]:checked'))
+          .map(el => el.value),
+        background: document.getElementById('background').value,
+        hours: document.getElementById('hours').value,
+        agreedToTos: document.getElementById('agree-tos').checked
+      };
+      
+      // Log to localStorage (persists locally)
+      const volunteers = JSON.parse(localStorage.getItem('agency_volunteers') || '[]');
+      volunteers.push(formData);
+      localStorage.setItem('agency_volunteers', JSON.stringify(volunteers));
+      
+      // Log to console (for Feddit admin)
+      console.log('Volunteer signup:', formData);
+      
+      // Show success message
+      document.getElementById('volunteerForm').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+      
+      // Reset form after delay
+      setTimeout(() => {
+        document.getElementById('volunteerForm').reset();
+        document.getElementById('volunteerForm').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
