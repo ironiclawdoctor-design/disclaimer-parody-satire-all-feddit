@@ -17,6 +17,48 @@ const url = require('url');
 const PORT = process.env.FEDDIT_PORT || 8888;
 const FEDDIT_ROOT = path.dirname(__filename);
 
+// Authentication
+const AUTH_TOKEN = process.env.FEDDIT_TOKEN;
+const TAILSCALE_NET = '100.64.0.0/10'; // Tailscale CGNAT range
+
+function isTailscaleIP(ip) {
+    // Simple check for 100.64.0.0/10 (100.64.0.0–100.127.255.255)
+    if (ip.startsWith('100.')) {
+        const parts = ip.split('.').map(Number);
+        if (parts[0] === 100 && parts[1] >= 64 && parts[1] <= 127) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function authenticate(req, res, next) {
+    const ip = req.socket.remoteAddress;
+    
+    // Allow Tailscale IPs without token
+    if (isTailscaleIP(ip)) {
+        return next();
+    }
+    
+    // For non-Tailscale IPs, require token
+    if (AUTH_TOKEN) {
+        const authHeader = req.headers.authorization;
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            const token = authHeader.substring(7);
+            if (token === AUTH_TOKEN) {
+                return next();
+            }
+        }
+        res.writeHead(401, { 'Content-Type': 'text/plain' });
+        res.end('401 Unauthorized');
+        return;
+    }
+    
+    // No token configured, deny non-Tailscale
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('403 Forbidden (Tailscale only)');
+}
+
 // Logging
 const logFile = path.join(FEDDIT_ROOT, 'access.jsonl');
 
@@ -122,46 +164,48 @@ function readFile(filePath) {
 
 // HTTP server
 const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-  let pathname = parsedUrl.pathname;
-  
-  // Normalize path
-  if (pathname === '/') pathname = '/';
-  else pathname = pathname.replace(/\/$/, ''); // Remove trailing slash
-  
-  const filePath = path.join(FEDDIT_ROOT, pathname);
-  
-  // Security: prevent directory traversal
-  if (!filePath.startsWith(FEDDIT_ROOT)) {
-    log({ type: 'BLOCKED', path: pathname, reason: 'directory_traversal' });
-    res.writeHead(403, { 'Content-Type': 'text/plain' });
-    res.end('403 Forbidden');
-    return;
-  }
-  
-  try {
-    const stat = fs.statSync(filePath);
+  authenticate(req, res, () => {
+    const parsedUrl = url.parse(req.url, true);
+    let pathname = parsedUrl.pathname;
     
-    if (stat.isDirectory()) {
-      log({ type: 'LIST', path: pathname });
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end(listDirectory(filePath, pathname));
-    } else if (stat.isFile()) {
-      log({ type: 'READ', path: pathname, size: stat.size });
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end(readFile(filePath));
+    // Normalize path
+    if (pathname === '/') pathname = '/';
+    else pathname = pathname.replace(/\/$/, ''); // Remove trailing slash
+    
+    const filePath = path.join(FEDDIT_ROOT, pathname);
+    
+    // Security: prevent directory traversal
+    if (!filePath.startsWith(FEDDIT_ROOT)) {
+      log({ type: 'BLOCKED', path: pathname, reason: 'directory_traversal' });
+      res.writeHead(403, { 'Content-Type': 'text/plain' });
+      res.end('403 Forbidden');
+      return;
     }
-  } catch (err) {
-    if (err.code === 'ENOENT') {
-      log({ type: 'NOT_FOUND', path: pathname });
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found');
-    } else {
-      log({ type: 'ERROR', path: pathname, error: err.message });
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('500 Internal Server Error');
+    
+    try {
+      const stat = fs.statSync(filePath);
+      
+      if (stat.isDirectory()) {
+        log({ type: 'LIST', path: pathname });
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(listDirectory(filePath, pathname));
+      } else if (stat.isFile()) {
+        log({ type: 'READ', path: pathname, size: stat.size });
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(readFile(filePath));
+      }
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        log({ type: 'NOT_FOUND', path: pathname });
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 Not Found');
+      } else {
+        log({ type: 'ERROR', path: pathname, error: err.message });
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('500 Internal Server Error');
+      }
     }
-  }
+  });
 });
 
 server.listen(PORT, () => {
